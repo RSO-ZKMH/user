@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  cache:
+      image: redis:6.2-alpine
+      restart: always
+      ports:
+        - '6379:6379'
+      command: redis-server --save 20 1 --loglevel warning
+      volumes: 
+        - cache:/data
+  web:
+    depends_on:
+      - cache
+    build:
+      context: ./admin
+      dockerfile: Dockerfile
+    environment:
+      - REDIS_HOST=cache
+    image: django-k8s:v1
+    ports:
+      - "8000:8000"
+    command: sh -c "ls && chmod +x /app/migrate.sh && sh /app/migrate.sh && /app/entrypoint.sh"
+
+volumes:
+  cache:
+    driver: local

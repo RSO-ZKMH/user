@@ -1,0 +1,28 @@
+name: Django CI & Postgres Test
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+jobs:
+  django_test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./admin
+    env:
+      DJANGO_SECRET_KEY: test-key-not-good-maybe-make-one-better
+      DB_IGNORE_SSL: "true"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run Tests
+        run: |
+          python manage.py test
