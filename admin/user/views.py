@@ -1,3 +1,5 @@
+import random
+import string
 from django.shortcuts import get_object_or_404
 from user.models import User
 from user.models import User
@@ -36,45 +38,20 @@ class UserViewSet(viewsets.ViewSet):
 
     def login(self, request):
         serializer = UserSerializer(data=request.data)
-        print(request)
-        #if(serializer.is_valid()):
+
+        if not serializer.is_valid():
+            return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        username = serializer.data.get('username')
+        password = serializer.data.get('password')
+        user = get_object_or_404(User, username=username)
+        if user.password == password:
+            # Create a random 10 character string as a token
+            token = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+
+            # Return the token
+            return JsonResponse({'token': token}, status=status.HTTP_200_OK)
+        else:
+            return JsonResponse({'error': 'Invalid username or password'}, status=status.HTTP_400_BAD_REQUEST)
 
             
-
-    '''
-    def retrieve(self, request, pk=None): # GET /api/user/:id
-        queryset = User.objects.all()
-        user = get_object_or_404(queryset, pk=pk)
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
-
-    @swagger_auto_schema(operation_description="Create a user", responses={404: 'slug not found'})
-    def create(self, request): # POST /api/user
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def update(self, request, pk=None): # PUT /api/user/:id
-        user = User.objects.get(pk=pk)
-        serializer = UserSerializer(user, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def destroy(self, request, pk=None): # DELETE /api/user/:id
-        user = User.objects.get(pk=pk)
-        user.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-    def partial_update(self, request, pk=None):
-        user = User.objects.get(pk=pk)
-        serializer = UserSerializer(user, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    '''
-        
