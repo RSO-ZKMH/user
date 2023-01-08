@@ -47,7 +47,7 @@ spec:
   ports:
     - port: 8160
       protocol: TCP
-      targetPort: 8000
+      targetPort: 8160
   selector:
     app: user-api
     component: backend
