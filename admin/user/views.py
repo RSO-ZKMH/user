@@ -4,12 +4,8 @@ from django.shortcuts import get_object_or_404
 from user.models import User
 from user.models import User
 from .serializers import UserSerializer
-from rest_framework.response import Response
 from django.http import JsonResponse
 from rest_framework import viewsets, status
-from drf_yasg.utils import swagger_auto_schema
-from constance import config
-from constance.signals import config_updated
 from django.dispatch import receiver
 
 class UserViewSet(viewsets.ViewSet):
@@ -37,6 +33,7 @@ class UserViewSet(viewsets.ViewSet):
         pass
 
     def login(self, request):
+
         serializer = UserSerializer(data=request.data)
 
         if not serializer.is_valid():
@@ -50,7 +47,7 @@ class UserViewSet(viewsets.ViewSet):
             token = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
 
             # Return the token
-            return JsonResponse({'token': token}, status=status.HTTP_200_OK)
+            return JsonResponse({'token': token, "userId": user.id}, status=status.HTTP_200_OK)
         else:
             return JsonResponse({'error': 'Invalid username or password'}, status=status.HTTP_400_BAD_REQUEST)
 
