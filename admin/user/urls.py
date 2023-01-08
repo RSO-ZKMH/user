@@ -30,7 +30,7 @@ urlpatterns = [
         'get': 'list',
         'post': 'create',
     })),
-    path('products/<str:pk>', UserViewSet.as_view({
+    path('user/<str:pk>', UserViewSet.as_view({
         'get': 'retrieve',
         'put': 'update',
         'delete': 'destroy',

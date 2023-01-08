@@ -8,7 +8,7 @@ on:
 
 jobs:
     test_django_job:
-      uses: RSO-ZKMH/productHandler/.github/workflows/test-django.yaml@main
+      uses: RSO-ZKMH/user/.github/workflows/test-django.yaml@main
     build:
       runs-on: ubuntu-latest
       needs: [test_django_job]

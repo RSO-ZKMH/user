@@ -1,7 +1,7 @@
-# RSO-productHandler
+# RSO-user
 
-Github Repo for productHandler microservice
-  - Includes API for fetching products...
+Github Repo for user microservice
+  - Includes API for fetching users...
   
 
 Local run steps:
