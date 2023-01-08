@@ -30,6 +30,18 @@ class UserViewSet(viewsets.ViewSet):
         
         return JsonResponse(queryset, safe=False, status=status.HTTP_200_OK)
 
+    # TODO if time
+    def register(self, request):
+        pass
+
+    def login(self, request):
+        serializer = UserSerializer(data=request.data)
+        print(request)
+        #if(serializer.is_valid()):
+
+            
+
+    '''
     def retrieve(self, request, pk=None): # GET /api/user/:id
         queryset = User.objects.all()
         user = get_object_or_404(queryset, pk=pk)
@@ -64,5 +76,5 @@ class UserViewSet(viewsets.ViewSet):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    '''
         

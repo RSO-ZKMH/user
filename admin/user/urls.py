@@ -36,5 +36,11 @@ urlpatterns = [
         'delete': 'destroy',
         'patch': 'partial_update',
     })),
+    path('register', UserViewSet.as_view)({
+        'post': 'register'
+    }),
+    path('login', UserViewSet.as_view)({
+        'post': 'login'
+    }),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]

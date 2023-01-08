@@ -18,7 +18,7 @@ services:
       - REDIS_HOST=cache
     image: django-k8s:v1
     ports:
-      - "8000:8000"
+      - "8160:8160"
     command: sh -c "ls && chmod +x /app/migrate.sh && sh /app/migrate.sh && /app/entrypoint.sh"
 
 volumes:
