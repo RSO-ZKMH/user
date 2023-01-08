@@ -11,4 +11,3 @@ django-constance
 django-constance[redis]
 graphene-django
 django-health-check
-WhiteNoise

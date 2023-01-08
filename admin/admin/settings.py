@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-(cx1!)ziag&g9k(xn%h1odef+t432cggcby4o0(*=r*787@8#r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Application definition
 INSTALLED_APPS = [
@@ -69,7 +69,6 @@ CONSTANCE_REDIS_CONNECTION = {
 }
 
 FORCE_SCRIPT_NAME = os.environ.get('BASE_PATH', '')
-WHITENOISE_ROOT = FORCE_SCRIPT_NAME
 
 
 ROOT_URLCONF = 'admin.urls'
